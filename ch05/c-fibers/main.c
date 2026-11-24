@@ -103,7 +103,7 @@ static bool ar_yield(ar_runtime_t *runtime) {
     return true;
 }
 
-__attribute__((naked))
+__attribute__((naked, used, noinline))
 static void ar_switch_context(ar_fiber_context_t *old_ctx, ar_fiber_context_t *new_ctx) {
     __asm__ volatile(
         // save old_ctx state
@@ -142,7 +142,7 @@ static void ar_return() {
     }
 }
 
-__attribute__((naked, noreturn))
+__attribute__((naked, __noreturn__))
 static void skip() { __asm__ volatile ("ret\n\t"); }
 
 static void guard() {
